@@ -21,7 +21,6 @@ void initSensors() {
   
   Wire.begin();
   
-  // Initialize BNO055
   Serial.println("Init BNO055 IMU");
   if (!bno.begin()) {
     Serial.println("ERROR: BNO055 failed!");
@@ -31,7 +30,6 @@ void initSensors() {
   bno.setExtCrystalUse(true);
   Serial.println("BNO055 OK");
   
-  // Left sensor (address 0x30)
   Serial.println("Init left sensor");
   digitalWrite(XSHUT_LEFT, HIGH);
   delay(50);
@@ -43,7 +41,6 @@ void initSensors() {
   leftSensor.setAddress(0x30);
   Serial.println("Left OK");
   
-  // Front sensor (address 0x31)
   Serial.println("Init front sensor");
   digitalWrite(XSHUT_FRONT, HIGH);
   delay(50);
@@ -55,7 +52,6 @@ void initSensors() {
   frontSensor.setAddress(0x31);
   Serial.println("Front OK");
   
-  // Right sensor (default 0x29)
   Serial.println("Init right sensor");
   digitalWrite(XSHUT_RIGHT, HIGH);
   delay(50);
@@ -85,5 +81,5 @@ uint16_t readRight() {
 float getYaw() {
   sensors_event_t event;
   bno.getEvent(&event);
-  return event.orientation.x; // Returns 0-360 degrees
+  return event.orientation.x; 
 }

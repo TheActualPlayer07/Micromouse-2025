@@ -25,7 +25,7 @@ float pwmB_out = 0;
 const float RAMP_UP_PER_LOOP = 2.0;
 const float BRAKE_DOWN_PER_LOOP = 5.0;
 
-void initPID() {
+void initForwardPID() {
   resetPID();
   current_target_speed = 0.0;
   prev_pid_time = millis();

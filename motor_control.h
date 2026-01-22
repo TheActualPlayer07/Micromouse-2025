@@ -25,8 +25,8 @@ void setMotors(float pwmA, float pwmB);
 void stopMotors();
 void calculateSpeeds();
 void resetEncoders();
-void turnRight90();
-void turnLeft90();
+void turnRight90(float target_yaw, float current_yaw);
+void turnLeft90(float target_yaw, float current_yaw);
 
 // ISR functions
 void encoderA_ISR();

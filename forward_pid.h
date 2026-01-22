@@ -21,7 +21,7 @@ extern float pwmA_out;
 extern float pwmB_out;
 
 // Functions
-void initPID();
+void initForwardPID();
 void resetPID();
 void updatePID(float targetSpeed, float currentSpeedA, float currentSpeedB);
 float calculateTargetSpeed(uint16_t distance);

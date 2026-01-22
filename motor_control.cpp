@@ -1,4 +1,7 @@
 #include "motor_control.h"
+#include "turning_pid.h"
+#include "centering_pid.h"
+#include "forward_pid.h"
 
 // Pin definitions
 const int MOTOR_A_IN1 = 28;
@@ -60,44 +63,24 @@ void stopMotors() {
   analogWrite(MOTOR_B_PWM, 0);
 }
 
-void turnRight90() {
-  long startA = encoderA_count;
-  long startB = encoderB_count;
-  long target = 200; // CALIBRATE THIS VALUE
-  
-  while (abs(encoderA_count - startA) < target && abs(encoderB_count - startB) < target) {
-    // Both motors forward = turn right
-    digitalWrite(MOTOR_A_IN1, HIGH);
-    digitalWrite(MOTOR_A_IN2, LOW);
-    analogWrite(MOTOR_A_PWM, 50);
-    
-    digitalWrite(MOTOR_B_IN1, HIGH);
-    digitalWrite(MOTOR_B_IN2, LOW);
-    analogWrite(MOTOR_B_PWM, 50);
-    delay(10);
-  }
+void turnRight90(float target_yaw, float current_yaw) {
   stopMotors();
-  delay(200);
+  delay(10);
+  target_yaw = current_yaw + 90;
+  turnToAngle(target_yaw, current_yaw);
+  delay(10);
+  resetPID();
+  resetCenteringPID();
 }
 
-void turnLeft90() {
-  long startA = encoderA_count;
-  long startB = encoderB_count;
-  long target = 200; // CALIBRATE THIS VALUE
-  
-  while (abs(encoderA_count - startA) < target && abs(encoderB_count - startB) < target) {
-    // Both motors backward = turn left
-    digitalWrite(MOTOR_A_IN1, LOW);
-    digitalWrite(MOTOR_A_IN2, HIGH);
-    analogWrite(MOTOR_A_PWM, 50);
-    
-    digitalWrite(MOTOR_B_IN1, LOW);
-    digitalWrite(MOTOR_B_IN2, HIGH);
-    analogWrite(MOTOR_B_PWM, 50);
-    delay(10);
-  }
+void turnLeft90(float target_yaw, float current_yaw) {
   stopMotors();
-  delay(200);
+  delay(10);
+  target_yaw = current_yaw - 90;
+  turnToAngle(target_yaw, current_yaw);
+  delay(10);
+  resetPID();
+  resetCenteringPID();
 }
 
 void calculateSpeeds() {
