@@ -12,8 +12,8 @@ extern const int MOTOR_B_IN2;
 extern const int MOTOR_B_PWM;
 
 // Encoder counts
-extern long encoderA_count;
-extern long encoderB_count;
+extern volatile long encoderA_count;
+extern volatile long encoderB_count;
 
 // Speed values
 extern float speedA;
@@ -27,6 +27,7 @@ void calculateSpeeds();
 void resetEncoders();
 void turnRight90(float target_yaw, float current_yaw);
 void turnLeft90(float target_yaw, float current_yaw);
+void turn180(float target_yaw, float current_yaw);
 
 // ISR functions
 void encoderA_ISR();

@@ -17,8 +17,8 @@ const int ENC_B1 = 15;
 const int ENC_B2 = 14;
 
 // Global variables
-long encoderA_count = 0;
-long encoderB_count = 0;
+volatile long encoderA_count = 0;
+volatile long encoderB_count = 0;
 long prev_encoderA = 0;
 long prev_encoderB = 0;
 unsigned long prev_time = 0;
@@ -77,6 +77,15 @@ void turnLeft90(float target_yaw, float current_yaw) {
   stopMotors();
   delay(10);
   target_yaw = current_yaw - 90;
+  turnToAngle(target_yaw, current_yaw);
+  delay(10);
+  resetPID();
+  resetCenteringPID();
+}
+void turn180(float target_yaw, float current_yaw) {
+  stopMotors();
+  delay(10);
+  target_yaw = current_yaw + 180;
   turnToAngle(target_yaw, current_yaw);
   delay(10);
   resetPID();
